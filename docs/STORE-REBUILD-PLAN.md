@@ -1,6 +1,8 @@
 # Norsk Gjenbruksmarked – Store rebuild plan
 
-Status: **plan ready, build blocked on 3 setup steps** (see "What I need from you").
+Status (2026-10-12): **built and pushed** to `norskgjenbruk888/gjenbruks-glede` (`main`, synced to
+Lovable). Phases 0–6 below are done; see `docs/STORE-GUIDE.md` in that repo for how to change
+prices, categories and menus. Open items are listed at the bottom.
 Audit date: 2026-10-12. Source audited: Lovable project
 "Norsk Gjenbruksmarked: Quality Renewed" (`d5d7713f-e169-4384-b099-7c26d48158b6`),
 latest commit `b5cae0aaec832c9c9f26a8c4b190845ed94cf2af` ("Added 3D hero fade in", 2026-09-15).
@@ -211,3 +213,31 @@ and a preview link for you before anything is published.
 Lovable keeps full history. If anything is wrong after publishing, restore commit
 `b5cae0aaec832c9c9f26a8c4b190845ed94cf2af` in Lovable (or revert in the synced
 GitHub repo) and publish again.
+
+---
+
+## 8. Build log (2026-10-12)
+
+Done in `norskgjenbruk888/gjenbruks-glede`:
+
+- **Forms:** fixed a live bug where Book visning, Kontakt and Selg til oss rejected empty optional
+  fields. Delivery booking from the checkout is now emailed to the shop and confirmed to the customer.
+- **Checkout:** one screen, date chips (no Sundays or public holidays), time windows, extras, contact
+  and address; same-tab payment; cart kept until the items are sold; fixed the date being saved one
+  day early in Norwegian time.
+- **Collections:** one engine for all 20+ pages, products in the server HTML, available first and
+  sold at the bottom, filters in the URL with live counts, quick view, alerts.
+- **Search:** instant search on Shopify data (header, `/`, Ctrl+K, mobile bottom bar), `/sok` page.
+- **Product page:** savings against new price, key specs, Kjøp nå, delivery estimate, book/ask with
+  product prefilled, recommendations, recently viewed, sold state with waitlist.
+- **Shell:** new header and mega menu, mobile bottom navigation, favourites, cart drawer.
+- **SEO:** 301s from old Shopify URLs, Product/ItemList/Breadcrumb/FAQ/Store JSON-LD, image sitemap.
+- **Speed:** logos 40 KB instead of 0.5 MB + 3.5 MB, no invisible-until-JS page transition.
+- **Quality:** 17 unit tests, type-check, lint, production build, browser QA against a mock catalogue.
+
+Open items:
+
+1. Lovable workspace still reports the Free plan – the custom domain needs a paid plan.
+2. Shopify connector needs sign-in in Claude so real tags/metafields can be checked.
+3. Delivery rule used: free over 6 000 kr in the local zone, otherwise 999 kr – change in
+   `src/lib/store-config.ts` if that's wrong.
