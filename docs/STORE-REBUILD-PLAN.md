@@ -235,6 +235,23 @@ Done in `norskgjenbruk888/gjenbruks-glede`:
 - **Speed:** logos 40 KB instead of 0.5 MB + 3.5 MB, no invisible-until-JS page transition.
 - **Quality:** 17 unit tests, type-check, lint, production build, browser QA against a mock catalogue.
 
+### Review round (2026-10-12, later)
+
+An independent five-area review (booking/email, Shopify API, cart state, SEO, UX), with a second
+reviewer trying to disprove each finding, confirmed 29 issues. All are fixed in commit `d8db241`:
+
+- **Emails never lost silently:** if the Gmail connection fails, the shop notification goes out via
+  Resend; the customer confirmation is sent independently of the shop notification.
+- **Dates:** always counted from the Norwegian date, also for customers abroad or with a tab left open
+  overnight.
+- **Last-second sales:** an item sold while the customer pays never opens payment or sends a booking.
+- **"Takk for bestillingen"** only after Shopify confirms the order; abandoned checkouts keep the cart.
+- **Back from Shopify** re-enables the pay button.
+- **SEO:** shipping prices in Google data limited to the Bergen delivery zone; temporary Shopify
+  failures return 500 (retried by Google) instead of an empty page or a false 404.
+- **Accessibility:** mobile menu focus, visible focus on checkboxes, no hidden taps on tablets.
+- **Tests:** 26 unit tests and a 17-step checkout test in the browser (emails captured and checked).
+
 Open items:
 
 1. Lovable workspace still reports the Free plan – the custom domain needs a paid plan.
